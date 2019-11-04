@@ -1,30 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import User from './User';
 
 const Users = props => {
-
-  const [users, setUsers] = useState([]);
-
-  const getJson = (link) => {
-    fetch(link)
-      .then(response => response.json())
-      .then(json =>  setUsers(json)
-      );
-  };
+  const {
+    users,
+    todos,
+    getJson,
+    setUsers
+  } = props;
 
   useEffect(() => {
-    getJson('https://jsonplaceholder.typicode.com/users');
-  }, []);
+    getJson('https://jsonplaceholder.typicode.com/users', setUsers);
+  }, [setUsers]);
 
   return (
-    <>
-      <h1>Users</h1>
+    <div>
+      <h2>Users List:</h2>
       <ol>
         {users.map((user) => (
-          <User {...user} key={user.id}/>
+          <User
+            key={user.id}
+            {...user}
+            usersTodos={todos.filter(usersTodo => usersTodo.userId === user.id)}
+          />
         ))}
       </ol>
-    </>
+    </div>
   )
 };
 

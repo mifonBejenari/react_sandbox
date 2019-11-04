@@ -1,18 +1,33 @@
 import React from 'react';
-import Address from './Address';
+import Contacts from './Contacts';
+import Company from './Company'
+import Todo from '../todo/Todo';
 
 const User = props => {
-  console.log(props);
+  const {
+    username,
+    name,
+    email,
+    address,
+    company,
+    usersTodos,
+  } = props;
 
   return (
-    <>
-      <li>
-        <div>username: {props.username}</div>
-        <div>name: {props.name}</div>
-        <div>email: {props.email}</div>
-        <Address {...props.address}/>
-      </li>
-    </>
+    <li>
+      <h3>Personal Information:</h3>
+      <div>Username: {username}</div>
+      <div>Name: {name}</div>
+      <div>Email: {email}</div>
+      <Contacts {...address} />
+      <Company {...company}/>
+      <h3>TODOS:</h3>
+      <ul>
+        {usersTodos.map(todo => (
+          <Todo {...todo} key={todo.id}/>
+        ))}
+      </ul>
+    </li>
   )
 };
 
