@@ -1,4 +1,7 @@
-import React from 'react';
+import React, {
+  useState
+} from 'react';
+import TodoForm from '../form/TodoForm';
 
 const Todo = props => {
   const {
@@ -6,9 +9,17 @@ const Todo = props => {
     completed,
   } = props;
 
+  const [formState, setFormState] = useState(false);
+
+  const clickHandler = () => {
+    setFormState(!formState);
+  };
+
   return (
     <li className={completed === true ? 'todo--completed' : ''}>
       <h4>{title}</h4>
+      <button onClick={clickHandler}>E</button>
+      {formState ? <TodoForm {...props}/> : null}
     </li>
   )
 };
